@@ -37,8 +37,8 @@ function App() {
 
     async function fetchMyList(){
       try{
-        var response  = localStorage.getItem('mylist');
-        response = '{"mylist": ['+response+']}';
+        const response  = JSON.parse(localStorage.getItem('mylist'));
+        if(response == null){response = []}
         console.log(response);
         setMyList(response);
       }catch{
@@ -51,7 +51,7 @@ function App() {
   return (
     <div className="App">
     <HeaderSlider SliderList={SliderList.results} />
-    <MyList Mylist={MyListn.mylist} />
+    <MyList MyListData={MyListn} />
      <GetGenre GenreList={GenreList.results} />
     </div>
   );

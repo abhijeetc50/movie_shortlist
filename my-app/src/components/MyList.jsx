@@ -13,7 +13,7 @@ MyList.defaultProps = {
 function MyList(props) {
     const { MyListData } = props;
     const child = { width: '300px', height: '140px' };
-    const parent = { width: '100%', height: '400px' };
+    const parent = { width: '100%', height: '250px' };
     if (MyListData) {
         return (
             <div style={parent}>
