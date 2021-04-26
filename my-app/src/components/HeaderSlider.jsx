@@ -20,12 +20,14 @@ function HeaderSlider(props) {
                     <Carousel>
                         {SliderList.map(post => (
                             <Carousel.Item  key={post.id} style={{ 'height': "300px" }} >
+                                <div className="img-gradient">
                                 <img style={{ 'height': "300px" }}
-                                    className="d-block w-100" alt={post.original_title}
+                                    className="d-block" alt={post.original_title}
                                     src={'https://image.tmdb.org/t/p/w185/' + post.backdrop_path} />
                                 <Carousel.Caption>
                                     <h3 >{post.original_title}</h3>
                                 </Carousel.Caption>
+                                </div>
                             </Carousel.Item  >
                         ))}
 

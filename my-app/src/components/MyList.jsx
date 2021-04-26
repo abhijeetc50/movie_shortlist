@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState, useEffect }  from 'react'
 import propTypes from 'prop-types';
+import { Image, Button } from "react-bootstrap";
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -13,11 +14,13 @@ const useStyles = makeStyles((theme) => ({
         overflow: 'hidden',
     },
     gridList: {
-        flexWrap: 'nowrap' ,
+        flexWrap: 'nowrap',
         // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
         transform: 'translateZ(0)'
     }
 }));
+
+
 
 MyList.propTypes = {
     MyListData: propTypes.array,
@@ -28,26 +31,52 @@ MyList.defaultProps = {
 };
 
 function MyList(props) {
+    const deleteMylist = (data) => {
+        var mylist = JSON.parse(localStorage.getItem('mylist'));
+        mylist.splice(mylist.indexOf(data.id) , 1);
+        localStorage.setItem('mylist', JSON.stringify(mylist));
+        window.location.reload();
+    }
+    const [isHovered, setHover] = useState(false);
     const { MyListData } = props;
     const classes = useStyles();
-    if (MyListData) {
+    if (MyListData.length > 0) {
         return (
-            <div  className='container-fluid' >
+            <div className='container-fluid'>
                 <h2 style={{ 'padding': "10px" }}>My List</h2>
-                <div className={classes.root, 'hellow'}  style={{ overflow: "hidden" }}>
-                    <GridList className={classes.gridList} cols={5}>
-                        {MyListData.map((tile) => (
-                            <GridListTile key={tile.id}>
-                                <img src={tile.image} alt={tile.name} />
-                                <GridListTileBar
-                                    title={tile.name}
-                                />
-                            </GridListTile>
-                        ))}
-                    </GridList>
+                <div className={classes.root, 'hellow'} style={{ overflow: "hidden" }}>
+                    <>
+                        <GridList className={classes.gridList} cols={5}>
+                            {MyListData.map((tile) => (
+                                <GridListTile className='imageContainer' key={tile.id}  onMouseOver={() => setHover(true)}
+                                onMouseLeave={() => setHover(false)} >
+                                    <img src={tile.image} alt={tile.name} />
+                                    {isHovered && (
+                                        <Button size="sm"
+                                            style={{
+                                                position: "absolute",
+                                                top: "5px",
+                                                right: "5px",
+                                            }} variant="danger" onClick={() => { deleteMylist(tile) }}>
+                                            Delete
+                                        </Button>
+                                    )}
+                                    <GridListTileBar
+                                        title={tile.name}
+                                    />
+                                </GridListTile>
+                            ))}
+                        </GridList>
+                    </>
                 </div>
             </div>
         );
+    } else {
+        return (
+            <div className='container-fluid'>
+            <h4 style={{ 'padding': "10px" }}>Nothing here! Scroll to discover more</h4>
+            </div>
+        )
     }
 }
 

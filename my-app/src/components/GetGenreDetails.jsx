@@ -5,7 +5,6 @@ import axios from 'axios'
 import GridListTile from '@material-ui/core/GridListTile';
 import GridListTileBar from '@material-ui/core/GridListTileBar';
 
-
 const useStyles = makeStyles((theme) => ({
     root: {
         display: 'flex',
@@ -17,6 +16,14 @@ const useStyles = makeStyles((theme) => ({
         flexWrap: 'nowrap'
     }
 }));
+
+function useForceUpdate() {
+    const [, forceUpdate] = React.useState();
+  
+    return React.useCallback(() => {
+      forceUpdate(s => !s);
+    }, []);
+  }
 
 function GetGenreDetails(id) {
     const [MyGenreDetailsData, setMyGenreDetailsData] = useState([]);
@@ -32,7 +39,6 @@ function GetGenreDetails(id) {
                     setShouldRender(true);
                 });
     }, []);
-
 
     const message = (data) => {
         var mylist = JSON.parse(localStorage.getItem('mylist'));
