@@ -1,6 +1,23 @@
 import React from 'react'
 import propTypes from 'prop-types';
-import HorizontalScroll from 'react-scroll-horizontal'
+import { makeStyles } from '@material-ui/core/styles';
+import GridList from '@material-ui/core/GridList';
+import GridListTile from '@material-ui/core/GridListTile';
+import GridListTileBar from '@material-ui/core/GridListTileBar';
+
+const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'left',
+        overflow: 'hidden',
+    },
+    gridList: {
+        flexWrap: 'nowrap' ,
+        // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+        transform: 'translateZ(0)'
+    }
+}));
 
 MyList.propTypes = {
     MyListData: propTypes.array,
@@ -12,22 +29,23 @@ MyList.defaultProps = {
 
 function MyList(props) {
     const { MyListData } = props;
-    const child = { width: '300px', height: '140px' };
-    const parent = { width: '100%', height: '250px' };
+    const classes = useStyles();
     if (MyListData) {
         return (
-            <div style={parent}>
+            <div  className='container-fluid' >
                 <h2 style={{ 'padding': "10px" }}>My List</h2>
-                <HorizontalScroll className="test">
-                    {MyListData.map(post => (
-                        <div style={{ 'padding': "10px" }}>
-                            <img style={child} key={post.id}
-                                className=""
-                                src={post.image} />
-                            <h5 className="text-center">{post.name}</h5>
-                        </div>
-                    ))}
-                </HorizontalScroll>
+                <div className={classes.root, 'hellow'}  style={{ overflow: "hidden" }}>
+                    <GridList className={classes.gridList} cols={5}>
+                        {MyListData.map((tile) => (
+                            <GridListTile key={tile.id}>
+                                <img src={tile.image} alt={tile.name} />
+                                <GridListTileBar
+                                    title={tile.name}
+                                />
+                            </GridListTile>
+                        ))}
+                    </GridList>
+                </div>
             </div>
         );
     }
