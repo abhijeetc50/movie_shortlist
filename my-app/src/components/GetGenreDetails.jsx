@@ -52,7 +52,7 @@ function GetGenreDetails(id) {
         mylist.push(someData);
         mylist = mylist.filter((ele, ind) => ind === mylist.findIndex(elem => elem.id === ele.id))
         localStorage.setItem('mylist', JSON.stringify(mylist));
-        window.location.reload();
+        id.something.fetchGenreList();
     }
 
     const classes = useStyles();
@@ -65,7 +65,7 @@ function GetGenreDetails(id) {
                         <GridList className={classes.gridList} cols={5}>
                             {MyGenreDetailsData && MyGenreDetailsData.length ? MyGenreDetailsData.map((tile) => (
                                 <GridListTile key={tile.id}>
-                                    <img src={'https://image.tmdb.org/t/p/w185/' + tile.backdrop_path} onClick={() => { message(tile) }}
+                                    <img src={'https://image.tmdb.org/t/p/w500/' + tile.backdrop_path} onClick={() => { message(tile) }}
                                         alt={tile.original_title} />
                                     <GridListTileBar
                                         title={tile.original_title}

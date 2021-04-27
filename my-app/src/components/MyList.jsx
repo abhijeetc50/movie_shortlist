@@ -38,7 +38,7 @@ function MyList(props) {
             mylist.splice(index, 1);
         }
         localStorage.setItem('mylist', JSON.stringify(mylist));
-        window.location.reload();
+        props.something.fetchGenreList();
     }
     const [isHovered, setHover] = useState(false);
     const { MyListData } = props;
