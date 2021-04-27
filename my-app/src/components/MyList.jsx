@@ -33,7 +33,10 @@ MyList.defaultProps = {
 function MyList(props) {
     const deleteMylist = (data) => {
         var mylist = JSON.parse(localStorage.getItem('mylist'));
-        mylist.splice(mylist.indexOf(data.id) , 1);
+        var index = mylist.findIndex(x => x.id ===data.id);
+        if (index !== -1) {
+            mylist.splice(index, 1);
+        }
         localStorage.setItem('mylist', JSON.stringify(mylist));
         window.location.reload();
     }

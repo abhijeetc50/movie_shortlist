@@ -11,7 +11,6 @@ HeaderSlider.defaultProps = {
 };
 
 function HeaderSlider(props) {
-    console.log = console.warn = console.error = () => {};
     const { SliderList } = props;
     if (SliderList) {
         return (
