@@ -17,17 +17,10 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-function useForceUpdate() {
-    const [, forceUpdate] = React.useState();
-  
-    return React.useCallback(() => {
-      forceUpdate(s => !s);
-    }, []);
-  }
-
 function GetGenreDetails(id) {
     const [MyGenreDetailsData, setMyGenreDetailsData] = useState([]);
     const [shouldRender, setShouldRender] = useState(false);
+
     useEffect(() => {
         const requesrURL = 'https://api.themoviedb.org/3/discover/movie?api_key=9be5962f75cabd26c04eb4443674e0d2&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&with_genres=' + id.MyGenreDetailsData;
         axios.get(requesrURL)
@@ -46,13 +39,13 @@ function GetGenreDetails(id) {
         var someData =
         {
             'id': data.id,
-            'image': "https://image.tmdb.org/t/p/w185/" + data.backdrop_path,
+            'image': "https://image.tmdb.org/t/p/w500/" + data.backdrop_path,
             'name': data.original_title
         };
         mylist.push(someData);
         mylist = mylist.filter((ele, ind) => ind === mylist.findIndex(elem => elem.id === ele.id))
         localStorage.setItem('mylist', JSON.stringify(mylist));
-        id.something.fetchGenreList();
+        id.allAPICalls.fetchAllData();
     }
 
     const classes = useStyles();
@@ -60,8 +53,8 @@ function GetGenreDetails(id) {
     return (
         <>
             {
-                shouldRender && <div className='container-fluid' >
-                    <div className={classes.root} style={{ overflow: "hidden" }}>
+                shouldRender && <div >
+                    <div className={classes.root} style={{ overflow: "hidden"}}>
                         <GridList className={classes.gridList} cols={5}>
                             {MyGenreDetailsData && MyGenreDetailsData.length ? MyGenreDetailsData.map((tile) => (
                                 <GridListTile key={tile.id}>

@@ -18,22 +18,19 @@ function HeaderSlider(props) {
                 <div className='container-fluid' >
                     <Carousel>
                         {SliderList.map(post => (
-                            <Carousel.Item  key={post.id} style={{ 'height': "300px" }} >
+                            <Carousel.Item key={post.id} style={{ 'height': "300px" }} >
                                 <div>
-                                <img style={{ 'height': "300px" }}
-                                    className="d-block w-100" alt={post.original_title}
-                                    src={'https://image.tmdb.org/t/p/w500/' + post.backdrop_path} />
-                                <Carousel.Caption>
-                                    <h3 >{post.original_title}</h3>
-                                </Carousel.Caption>
+                                    <img style={{ 'height': "300px" }}
+                                        className="d-block w-100" alt={post.original_title}
+                                        src={'https://image.tmdb.org/t/p/w500/' + post.backdrop_path} />
+                                    <Carousel.Caption>
+                                        <h3 >{post.original_title}</h3>
+                                    </Carousel.Caption>
                                 </div>
-                            </Carousel.Item  >
+                            </Carousel.Item>
                         ))}
-
                     </Carousel>
-
                 </div>
-
             </div>
         )
     }

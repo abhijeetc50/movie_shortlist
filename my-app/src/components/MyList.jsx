@@ -1,6 +1,6 @@
-import React, { useState, useEffect }  from 'react'
+import React, { useState } from 'react'
 import propTypes from 'prop-types';
-import { Image, Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { makeStyles } from '@material-ui/core/styles';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -20,8 +20,6 @@ const useStyles = makeStyles((theme) => ({
     }
 }));
 
-
-
 MyList.propTypes = {
     MyListData: propTypes.array,
 };
@@ -33,12 +31,12 @@ MyList.defaultProps = {
 function MyList(props) {
     const deleteMylist = (data) => {
         var mylist = JSON.parse(localStorage.getItem('mylist'));
-        var index = mylist.findIndex(x => x.id ===data.id);
+        var index = mylist.findIndex(x => x.id === data.id);
         if (index !== -1) {
             mylist.splice(index, 1);
         }
         localStorage.setItem('mylist', JSON.stringify(mylist));
-        props.something.fetchGenreList();
+        props.allAPICalls.fetchAllData();
     }
     const [isHovered, setHover] = useState(false);
     const { MyListData } = props;
@@ -46,13 +44,13 @@ function MyList(props) {
     if (MyListData.length > 0) {
         return (
             <div className='container-fluid'>
-                <h2 style={{ 'padding': "10px" }}>My List</h2>
+                <h3 style={{ 'padding': "10px" }} style={{ 'padding-top': "30px" }}>My List</h3>
                 <div className={classes.root, 'hellow'} style={{ overflow: "hidden" }}>
                     <>
                         <GridList className={classes.gridList} cols={5}>
                             {MyListData.map((tile) => (
-                                <GridListTile className='imageContainer' key={tile.id}  onMouseOver={() => setHover(true)}
-                                onMouseLeave={() => setHover(false)} >
+                                <GridListTile className='imageContainer' key={tile.id} onMouseOver={() => setHover(true)}
+                                    onMouseLeave={() => setHover(false)} >
                                     <img src={tile.image} alt={tile.name} />
                                     {isHovered && (
                                         <Button size="sm"
@@ -77,7 +75,7 @@ function MyList(props) {
     } else {
         return (
             <div className='container-fluid'>
-            <h4 style={{ 'padding': "10px" }}>Nothing here! Scroll to discover more</h4>
+                <h3 style={{ 'padding': "10px" }} style={{ 'padding-top': "30px" }}>Nothing here! Scroll to discover more</h3>
             </div>
         )
     }

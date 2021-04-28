@@ -12,14 +12,13 @@ GetGenre.defaultProps = {
 
 function GetGenre(props) {
     const { GenreList } = props;
-    var getGenreDetailsComponent = {};
     if (GenreList) {
         return (
             <>
                 {GenreList.map(post => (
                     <div className='container-fluid'>
-                        <h3 style={{ 'padding': "10px" }} key={post.id}>{post.name}</h3>
-                        <GetGenreDetails something = {props.something}  MyGenreDetailsData={post.id} />
+                        <h3 style={{ 'padding': "10px" }} style={{ 'padding-top': "30px" }} key={post.id}>{post.name}</h3>
+                        <GetGenreDetails allAPICalls={props.allAPICalls} MyGenreDetailsData={post.id} />
                     </div>
                 ))}
             </>
